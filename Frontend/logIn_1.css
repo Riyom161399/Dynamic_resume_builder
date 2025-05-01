@@ -1,0 +1,165 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  min-height: 90vh;
+}
+
+.left-section {
+  flex: 1;
+  padding: 60px;
+  background-color: #f8f9fa; /* --light equivalent */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.left-section h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  color: #001139; /* --dark */
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.portfolio-link {
+  display: inline-block;
+  text-decoration: none;
+  font-style: italic;
+  font-weight: 600;
+  color: #3a7bd5; /* --secondary */
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.portfolio-link:hover {
+  color: #2a65b7; /* darkened --secondary */
+}
+
+.resume-img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.right-section {
+  flex: 1;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    #00d2ff,
+    #3a7bd5
+  ); /* primary to secondary gradient */
+}
+
+.description {
+  font-size: 3.5rem;
+  color: white; /* white text on gradient background */
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  font-family: "Playfair Display", serif;
+  position: relative;
+  display: inline-block;
+}
+
+.description::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: white; /* white underline on gradient background */
+}
+
+.btn {
+  background-color: #001139; /* --dark */
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #000a1f; /* darkened --dark */
+}
+
+.signup-text {
+  font-weight: 500;
+  margin: 1.5rem 0;
+  color: #e0e0e0; /* light gray for better contrast on gradient */
+  text-align: center;
+  width: 100%;
+}
+
+.divider {
+  width: 100%;
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2); /* subtle white divider */
+}
+
+.social-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icons a {
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: translateY(-3px);
+}
+
+.social-icons img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1); /* white icons */
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.social-icons img:hover {
+  opacity: 1;
+}
+
+/* Add Montserrat font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
