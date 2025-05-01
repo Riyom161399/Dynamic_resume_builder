@@ -1,0 +1,439 @@
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Raleway:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  --primary: #4ee0e0;
+  --secondary: #3a7bd5; /* Changed from brown to blue to match primary */
+  --dark: #001139;
+  --light: #f8f9fa; /* Lighter background for better contrast */
+  --accent: #f4889b;
+  --success: #4be198;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  background-color: #222;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* General Section Layout */
+section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+}
+
+/* ---------- LANDING SECTION ---------- */
+.landing {
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--secondary) 100%
+  ); /* Now uses secondary color */
+  color: var(--dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.landing::after {
+  content: "";
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.landing .left,
+.landing .right {
+  flex: 1 1 400px;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+}
+
+.landing .script {
+  font-family: "Great Vibes", cursive;
+  font-size: 4.5rem;
+  color: white;
+  line-height: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.landing .bold {
+  font-weight: 800;
+  font-size: 3.5rem;
+  color: var(--dark);
+  margin-top: -15px;
+  letter-spacing: -1px;
+}
+
+.landing h2 {
+  font-size: 1.8rem;
+  color: white;
+  margin: 40px 0 20px;
+  font-weight: 300;
+}
+
+.landing button {
+  margin-top: 30px;
+  background-color: var(--dark);
+  color: white;
+  padding: 18px 45px;
+  border: none;
+  border-radius: 0 100px 0 100px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.landing button:hover {
+  background-color: #002a6f;
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.landing button:hover::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(40, 40);
+    opacity: 0;
+  }
+}
+
+.landing .right h3 {
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+  color: var(--dark);
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.landing .right h3::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: white;
+}
+
+.developer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  transition: transform 0.3s ease;
+}
+
+.developer:hover {
+  transform: translateX(10px);
+}
+
+.developer img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin-right: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border: 2px solid white;
+}
+
+.developer h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.role {
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+.junior {
+  color: var(--success);
+}
+
+.developer p {
+  font-size: 0.85rem;
+  color: #eee;
+  opacity: 0.9;
+}
+
+/* ---------- RESUME SECTION ---------- */
+.resume {
+  background-color: var(--light);
+  color: var(--dark);
+  position: relative;
+}
+
+.resume::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+}
+
+.resume .left,
+.resume .right {
+  flex: 1 1 400px;
+  padding: 40px;
+}
+
+.resume .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resume .left img {
+  width: 100%;
+  max-width: 280px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 5px solid white;
+  transition: transform 0.3s ease;
+}
+
+.resume .left img:hover {
+  transform: scale(1.03);
+}
+
+.resume .left h2 {
+  font-size: 2rem;
+  margin-top: 30px;
+  color: var(--secondary);
+  font-weight: 700;
+}
+
+.resume .left p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  font-weight: 500;
+  color: var(--dark);
+  text-align: center;
+  opacity: 0.8;
+}
+
+.socials {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.socials span {
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 15px;
+  color: var(--secondary);
+  letter-spacing: 1px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.icons a img {
+  width: 28px;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.icons a img:hover {
+  opacity: 1;
+  transform: translateY(-3px) scale(1.1);
+}
+
+.resume .right h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  background-color: var(--secondary);
+  color: #fff;
+  padding: 8px 15px;
+  display: inline-block;
+  margin-top: 40px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.resume .right h3:first-child {
+  margin-top: 0;
+}
+
+.resume .about h2 {
+  font-size: 2.2rem;
+  margin: 20px 0;
+  color: var(--secondary);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.resume .right p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 12px 0;
+  color: var(--dark);
+  opacity: 0.9;
+}
+
+.resume .right strong {
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.resume button {
+  margin-top: 25px;
+  background-color: var(--secondary);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 30px;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 15px rgba(58, 123, 213, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.resume button:hover {
+  background-color: #2a65b7;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(58, 123, 213, 0.4);
+}
+
+.resume button:active {
+  transform: translateY(1px);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 992px) {
+  section {
+    padding: 40px 30px;
+  }
+
+  .landing .script {
+    font-size: 3.5rem;
+  }
+
+  .landing .bold {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .landing,
+  .resume {
+    flex-direction: column;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .landing .left,
+  .landing .right,
+  .resume .left,
+  .resume .right {
+    padding: 30px 20px;
+  }
+
+  .developer {
+    justify-content: center;
+    max-width: 350px;
+    margin: 20px auto;
+  }
+
+  .resume .left img {
+    margin: 0 auto;
+  }
+
+  .resume .right {
+    text-align: center;
+  }
+
+  .resume .right h3 {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing .script {
+    font-size: 2.8rem;
+  }
+
+  .landing .bold {
+    font-size: 2.2rem;
+  }
+
+  .landing h2 {
+    font-size: 1.5rem;
+  }
+
+  .resume .about h2 {
+    font-size: 1.8rem;
+  }
+}
