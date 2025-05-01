@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Recommendations</title>
+  <link rel="stylesheet" href="Job_vacancy.css" />
+</head>
+<body>
+
+  <header class="navbar">
+    <h1>Govevi</h1>
+    <nav>
+      <a href="homePage.html">Home</a>
+      <a href="resume.html">Resume</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a class="active" href="#">Jobs</a>
+    </nav>
+  </header>
+
+  <main class="job-section">
+    <h2>Recommended Jobs for You</h2>
+    <p>These jobs match your skills and experience.</p>
+    
+    <input type="text" id="skillFilter" placeholder="Filter by skill (e.g., React)" />
+    
+    <!-- Jobs will be inserted here dynamically -->
+  </main>
+  <div class="slideshow-container">
+    <div class="slide" style="background-image: url('pics/workspace.png');"></div>
+    <div class="slide" style="background-image: url('pics/handshaking.png');"></div>
+    <div class="slide" style="background-image: url('pics/meeting.png');"></div>
+    <!-- Add more slides as needed -->
+    <div class="slideshow-overlay"></div>
+  </div>
+  
+
+  <script src="Job_vacancy.js"></script>
+</body>
+</html>
