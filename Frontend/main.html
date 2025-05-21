@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume Builder</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .sidebar {
+        width: 240px;
+        background: linear-gradient(to bottom right, #111, #333);
+        color: white;
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 12px 15px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 15px;
+        font-weight: 500;
+        backdrop-filter: blur(4px);
+      }
+
+      .menu-item i {
+        font-size: 18px;
+      }
+
+      .menu-item:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateX(8px);
+        color: #00ffe1;
+      }
+      .sidebar {
+        animation: slideIn 0.4s ease;
+      }
+
+      #cvEditor h2,
+      #cvEditor h3,
+      #cvEditor p,
+      #cvEditor ul {
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      #cvEditor [contenteditable="true"]:hover {
+        background: #f0f8ff;
+        cursor: text;
+        outline: none;
+        border: 1px dashed #ccc;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .main {
+        flex: 1;
+        display: flex;
+      }
+
+      .templates {
+        flex: 2;
+        background-color: #f4f4f4;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .template-box {
+        width: 250px;
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.4s ease;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .template-box:hover {
+        transform: translateY(-8px) scale(1.05);
+      }
+
+      .template-box img {
+        width: 100%;
+        border-radius: 6px;
+        transition: transform 0.3s;
+      }
+
+      .template-box:hover img {
+        transform: scale(1.05);
+      }
+
+      .chat-box {
+        width: 380px;
+        background-color: #fff;
+        border-left: 1px solid #ccc;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .message {
+        margin: 10px 0;
+        background-color: #e0e0e0;
+        padding: 10px 15px;
+        border-radius: 20px;
+        max-width: 80%;
+        animation: fadeIn 0.3s ease-in;
+      }
+
+      .message.user {
+        align-self: flex-end;
+        background-color: #c7d4ff;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .chat-input {
+        display: flex;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        border-radius: 20px 0 0 20px;
+        outline: none;
+      }
+
+      .chat-input button {
+        background-color: #222;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 0 20px 20px 0;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .chat-input button:hover {
+        background-color: #444;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="menu-item"><i class="fas fa-user"></i> Your Profile</div>
+      <div class="menu-item">
+        <i class="fas fa-folder-open"></i> Current Projects
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-mouse-pointer"></i> Drag & Drop
+      </div>
+      <div class="menu-item"><i class="fas fa-comments"></i> Chatting</div>
+      <div class="menu-item"><i class="fas fa-sign-out-alt"></i> Logout</div>
+    </div>
+
+    <div class="main">
+      <div class="templates">
+        <div class="template-box" onclick="loadTemplate('template1')">
+          <img
+            src="https://cdn.pixabay.com/photo/2016/10/09/08/29/resume-1726358_960_720.jpg"
+            alt="Template 1"
+          />
+          <p>Template 1</p>
+        </div>
+        <div class="template-box" onclick="loadTemplate('template2')">
+          <img
+            src="https://cdn.pixabay.com/photo/2017/08/30/07/52/resume-2693473_960_720.jpg"
+            alt="Template 2"
+          />
+          <p>Template 2</p>
+        </div>
+      </div>
+
+      <!-- Editable CV Preview -->
+      <div
+        id="cvEditor"
+        style="
+          display: none;
+          padding: 20px;
+          background: white;
+          border-radius: 10px;
+          margin: 20px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+        "
+      >
+        <h2 contenteditable="true" style="margin-bottom: 10px">Your Name</h2>
+        <h3>Experience</h3>
+        <p contenteditable="true">
+          Job Title at Company — Year<br />Description of your responsibilities
+          and achievements.
+        </p>
+        <h3>Education</h3>
+        <p contenteditable="true">
+          Degree at University — Year<br />Details about your study.
+        </p>
+      </div>
+
+      <div class="chat-box">
+        <div class="chat-messages" id="chat">
+          <div class="message">Hello, Resume Builder</div>
+          <div class="message">Hello, Shimanto. How can I help YOU?</div>
+          <div class="message user">I want to build my resume!</div>
+          <div class="message">
+            How would you like to do that?<br />1. Drag and Drop<br />2. Built
+            templates.
+          </div>
+          <div class="message user">Built in templates</div>
+          <div class="message">Great. Here are some templates.</div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="userInput" placeholder="Type a message..." />
+          <button onclick="sendMessage()">➤</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function loadTemplate(templateId) {
+        const editor = document.getElementById("cvEditor");
+        editor.style.display = "block";
+        editor.scrollIntoView({ behavior: "smooth" });
+
+        // Optional: Load different content based on template
+        if (templateId === "template1") {
+          editor.innerHTML = `
+      <h2 contenteditable="true" style="margin-bottom: 10px;">Your Name</h2>
+      <h3>Experience</h3>
+      <p contenteditable="true">Job Title at Company — Year<br>Description of your responsibilities and achievements.</p>
+      <h3>Education</h3>
+      <p contenteditable="true">Degree at University — Year<br>Details about your study.</p>
+    `;
+        } else if (templateId === "template2") {
+          editor.innerHTML = `
+      <h2 contenteditable="true" style="margin-bottom: 10px; color: #007BFF;">Your Name</h2>
+      <h3 style="color: #555;">Summary</h3>
+      <p contenteditable="true">Brief description about yourself.</p>
+      <h3 style="color: #555;">Skills</h3>
+      <ul contenteditable="true"><li>Skill 1</li><li>Skill 2</li></ul>
+    `;
+        }
+      }
+
+      async function sendMessage() {
+        const input = document.getElementById("userInput");
+        const chat = document.getElementById("chat");
+        const userText = input.value.trim();
+
+        if (!userText) return;
+
+        const userMessage = document.createElement("div");
+        userMessage.classList.add("message", "user");
+        userMessage.textContent = userText;
+        chat.appendChild(userMessage);
+
+        input.value = "";
+
+        const botMessage = document.createElement("div");
+        botMessage.classList.add("message");
+        botMessage.textContent = "...";
+        chat.appendChild(botMessage);
+        chat.scrollTop = chat.scrollHeight;
+
+        try {
+          const response = await fetch(
+            "https://api.openai.com/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer YOUR_API_KEY",
+              },
+              body: JSON.stringify({
+                model: "gpt-3.5-turbo",
+                messages: [{ role: "user", content: userText }],
+              }),
+            }
+          );
+
+          const data = await response.json();
+          const aiReply = data.choices[0].message.content;
+          botMessage.textContent = aiReply;
+          chat.scrollTop = chat.scrollHeight;
+        } catch (error) {
+          botMessage.textContent = "Failed to connect to AI.";
+        }
+      }
+    </script>
+  </body>
+</html>
