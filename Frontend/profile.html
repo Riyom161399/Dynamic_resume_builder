@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <div class="profile-container">
+      <div class="animated-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+      </div>
+      <div class="left-section">
+        <div class="profile-image">
+          <!-- Replace with actual image: <img src="path/to/image.jpg" alt="User Photo"> -->
+          JD
+        </div>
+
+        <h1 class="user-name">John Doe</h1>
+        <p class="user-title">Software Developer</p>
+
+        <div class="contact-buttons">
+          <a href="mailto:john.doe@example.com" class="contact-btn btn-primary"
+            >Send Email</a
+          >
+          <a href="tel:+15551234567" class="contact-btn btn-secondary"
+            >Call Now</a
+          >
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="info-section">
+          <div class="info-item">
+            <div class="info-icon">📧</div>
+            <div class="info-label">Email:</div>
+            <div class="info-value">john.doe@example.com</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">📞</div>
+            <div class="info-label">Contact:</div>
+            <div class="info-value">+1 (555) 123-4567</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">🏠</div>
+            <div class="info-label">Address:</div>
+            <div class="info-value">123 Main Street, City, State 12345</div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">📱</div>
+            <div class="info-label">Phones:</div>
+            <div class="info-value">
+              <ul class="phone-list">
+                <li class="phone-item">
+                  <span class="phone-type">Mobile:</span> +1 (555) 123-4567
+                </li>
+                <li class="phone-item">
+                  <span class="phone-type">Home:</span> +1 (555) 987-6543
+                </li>
+                <li class="phone-item">
+                  <span class="phone-type">Work:</span> +1 (555) 456-7890
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="profile.js"></script>
+  </body>
+</html>

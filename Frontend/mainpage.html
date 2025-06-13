@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional Resume Builder</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="mainpage.css">
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <i class="fas fa-file-alt"></i>
+        <h2>ResumePro</h2>
+      </div>
+      <div class="menu-item active">
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-file-alt"></i>
+        <span>My Resumes</span>
+      </div>
+      <div class="menu-item" onclick="showSection('dragDropContainer')">
+        <i class="fas fa-mouse-pointer"></i>
+        <span>Drag & Drop</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-magic"></i>
+        <span>Templates</span>
+      </div>
+      <div class="menu-item">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </div>
+      <div class="menu-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main">
+      <div class="content-area">
+        <!-- Top Navigation Bar -->
+        <div class="top-bar">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search templates, resumes..." />
+          </div>
+          <div class="user-profile">
+            <div class="name">John Doe</div>
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
+          </div>
+        </div>
+
+        <!-- Templates Section (Default View) -->
+        <div class="templates-container" id="templatesView">
+          <div class="section-header">
+            <h2>Professional Resume Templates</h2>
+            <div class="filter-options">
+              <button class="filter-btn active">All</button>
+              <button class="filter-btn">Modern</button>
+              <button class="filter-btn">Creative</button>
+              <button class="filter-btn">Simple</button>
+            </div>
+          </div>
+
+          <div class="templates-grid">
+            <!-- Template 1 -->
+            <div class="template-card" onclick="loadTemplate('template1')">
+              <div class="preview">
+                <img
+                  src="https://cdn.pixabay.com/photo/2016/10/09/08/29/resume-1726358_960_720.jpg"
+                  alt="Professional Template"
+                />
+              </div>
+              <div class="info">
+                <div class="title">Professional</div>
+                <div class="category">Modern Design</div>
+                <div class="actions">
+                  <button class="action-btn preview-btn">
+                    <i class="fas fa-eye"></i> Preview
+                  </button>
+                  <button class="action-btn use-btn">
+                    <i class="fas fa-check"></i> Use
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Template 2 -->
+            <div class="template-card" onclick="loadTemplate('template2')">
+              <div class="preview">
+                <img
+                  src="https://cdn.pixabay.com/photo/2017/08/30/07/52/resume-2693473_960_720.jpg"
+                  alt="Creative Template"
+                />
+              </div>
+              <div class="info">
+                <div class="title">Creative</div>
+                <div class="category">Innovative Layout</div>
+                <div class="actions">
+                  <button class="action-btn preview-btn">
+                    <i class="fas fa-eye"></i> Preview
+                  </button>
+                  <button class="action-btn use-btn">
+                    <i class="fas fa-check"></i> Use
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Template 3 -->
+            <div class="template-card" onclick="loadTemplate('template3')">
+              <div class="preview">
+                <img
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Minimal Template"
+                />
+              </div>
+              <div class="info">
+                <div class="title">Minimal</div>
+                <div class="category">Clean & Simple</div>
+                <div class="actions">
+                  <button class="action-btn preview-btn">
+                    <i class="fas fa-eye"></i> Preview
+                  </button>
+                  <button class="action-btn use-btn">
+                    <i class="fas fa-check"></i> Use
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Template 4 -->
+            <div class="template-card" onclick="loadTemplate('template4')">
+              <div class="preview">
+                <img
+                  src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt="Executive Template"
+                />
+              </div>
+              <div class="info">
+                <div class="title">Executive</div>
+                <div class="category">Corporate Style</div>
+                <div class="actions">
+                  <button class="action-btn preview-btn">
+                    <i class="fas fa-eye"></i> Preview
+                  </button>
+                  <button class="action-btn use-btn">
+                    <i class="fas fa-check"></i> Use
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CV Editor Section (Hidden by default) -->
+        <div class="cv-editor-container" id="cvEditor">
+          <div class="editor-header">
+            <h2>Edit Your Resume</h2>
+            <div class="editor-actions">
+              <button class="editor-btn back-btn" onclick="backToTemplates()">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <button class="editor-btn save-btn">
+                <i class="fas fa-save"></i> Save
+              </button>
+              <button class="editor-btn download-btn">
+                <i class="fas fa-download"></i> Download
+              </button>
+            </div>
+          </div>
+
+          <div class="cv-editor" id="editableCv">
+            <!-- Content will be loaded dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Assistant -->
+      <div class="chat-container">
+        <div class="chat-header">
+          <i class="fas fa-robot"></i>
+          <h3>Resume Assistant</h3>
+        </div>
+        <div class="chat-messages" id="chat">
+          <div class="message bot-message">
+            Hello! I'm your Resume Assistant. How can I help you today?
+          </div>
+          <div class="message bot-message">
+            You can ask me questions like:<br />
+            - "How to write a good summary?"<br />
+            - "What skills should I include?"<br />
+            - "How to format my work experience?"
+          </div>
+          <div class="message user-message">
+            I need help choosing a template
+          </div>
+          <div class="message bot-message">
+            I can recommend templates based on your needs. Are you applying for a:<br />
+            1. Corporate job<br />
+            2. Creative position<br />
+            3. Academic role<br />
+            4. Technical field
+          </div>
+        </div>
+        <div class="chat-input-container">
+          <input
+            type="text"
+            class="chat-input"
+            id="userInput"
+            placeholder="Type your message..."
+            onkeypress="handleKeyPress(event)"
+          />
+          <button class="send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="mainpage.js">
+  
+    </script>
+  </body>
+</html>
