@@ -1,0 +1,83 @@
+const express = require("express");
+const mysql = require("mysql2");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const path = require("path");
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, "Frontend"))); // Serves your frontend files
+
+// MySQL connection
+const db = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "@160902@joy", // set your MySQL password
+  database: "IP_Project",
+});
+
+db.connect((err) => {
+  if (err) throw err;
+  console.log("Connected to MySQL!");
+});
+
+// Route to handle signup
+app.post("/signUp", async (req, res) => {
+  console.log("Request body:", req.body); // <-- Add this line to debug
+
+  const { username, name, birth_date, email, password, confirm_password } =
+    req.body;
+  if (password !== confirm_password) {
+    return res.status(400).send("Passwords do not match");
+  }
+
+  //const hashedPassword = await bcrypt.hash(password, 10);
+  const sql = `INSERT INTO Member (username, name, birth_date, email, password) VALUES (?, ?, ?, ?, ?)`;
+  db.query(
+    sql,
+    [username, name, birth_date, email, password],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error inserting user");
+      }
+      res.send("Signup successful!");
+    }
+  );
+});
+
+// log in
+// Login API
+
+app.post("/api/login", (req, res) => {
+  const { userName, password } = req.body;
+
+  if (!userName || !password) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Missing credentials" });
+  }
+
+  const query = "SELECT * FROM Member WHERE username = ? AND password = ?";
+  db.query(query, [userName, password], (err, results) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ success: false, message: "Server error" });
+    }
+
+    if (results.length > 0) {
+      res.json({ success: true });
+    } else {
+      res.json({ success: false, message: "Invalid ID or password" });
+    }
+  });
+});
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "Frontend", "homePage.html"));
+});
+
+app.listen(3000, () => {
+  console.log("Server started on http://localhost:3000");
+});
