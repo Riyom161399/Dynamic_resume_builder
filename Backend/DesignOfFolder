@@ -1,0 +1,18 @@
+
+│
+├── Frontend
+│   ├── xyz.css
+│   │                 # Stylesheet for your application
+│   ├──xyz. js
+│   │                  # JavaScript for interactivity
+│   ├──pics
+│   │                   # Images used in the frontend
+│   ├── xyz.html            # HTML for structure
+│   
+│                    
+│
+|
+│
+└── package.json                    # Node.js dependencies and scripts
+|
+|___server.js
