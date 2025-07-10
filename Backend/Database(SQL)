@@ -1,0 +1,16 @@
+
+CREATE DATABASE IF NOT EXISTS IP_Project;
+
+
+USE IP_Project;
+
+
+CREATE TABLE Member (
+    username VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    birth_date DATE NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
+select * from Member;
