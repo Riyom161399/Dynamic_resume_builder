@@ -7,7 +7,6 @@ body {
   display: flex;
   align-items: center;
 }
-
 .container {
   display: flex;
   width: 100%;
@@ -161,5 +160,5 @@ body {
   opacity: 1;
 }
 
-/* Add Montserrat font */
+/* Add Montserrat font   */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
