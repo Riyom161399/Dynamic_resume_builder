@@ -7,8 +7,10 @@ document.querySelector(".signup-form").addEventListener("submit", async (e) => {
     name: form[1].value,
     birth_date: form[2].value,
     email: form[3].value,
-    password: form[4].value,
-    confirm_password: form[5].value,
+    contact: form[4].value,
+    address: form[5].value,
+    password: form[6].value,
+    confirm_password: form[7].value,
   };
 
   const res = await fetch("/signUp", {
