@@ -27,7 +27,8 @@ document.querySelector(".signin-btn").addEventListener("click", () => {
       if (data.success) {
         alert("Login successful!");
         // redirect to dashboard or homepage
-        window.location.href = "/mainpage.html";
+        localStorage.setItem("userName", userName);
+        window.location.href = "/Job_vacancy.html";
       } else {
         alert(data.message || "Login failed.");
       }
