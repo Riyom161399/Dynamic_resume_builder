@@ -125,6 +125,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Update the profile section with fetched data
         document.getElementById("profile-email").textContent = data.email;
         document.getElementById("profile-name").textContent = data.name;
+        document.getElementById("profile-contact").textContent = data.contact;
+        document.getElementById("profile-address").textContent = data.address;
       }
     })
     .catch((error) => {
