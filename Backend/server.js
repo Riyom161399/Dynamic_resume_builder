@@ -27,17 +27,25 @@ db.connect((err) => {
 app.post("/signUp", async (req, res) => {
   console.log("Request body:", req.body); // <-- Add this line to debug
 
-  const { username, name, birth_date, email, password, confirm_password } =
-    req.body;
+  const {
+    username,
+    name,
+    birth_date,
+    email,
+    contact,
+    address,
+    password,
+    confirm_password,
+  } = req.body;
   if (password !== confirm_password) {
     return res.status(400).send("Passwords do not match");
   }
 
   //const hashedPassword = await bcrypt.hash(password, 10);
-  const sql = `INSERT INTO Member (username, name, birth_date, email, password) VALUES (?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO Member (username, name, birth_date, email,contact,address, password) VALUES (?, ?, ?, ?, ?,?,?)`;
   db.query(
     sql,
-    [username, name, birth_date, email, password],
+    [username, name, birth_date, email, contact, address, password],
     (err, result) => {
       if (err) {
         console.error(err);
@@ -112,7 +120,7 @@ app.get("/api/profile/:id", (req, res) => {
   const profileusername = req.params.id;
   const query = `
       SELECT 
-          email,name
+          email,name,contact,address
       FROM Member 
       WHERE username = ?`;
 
