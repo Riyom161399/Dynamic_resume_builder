@@ -305,10 +305,6 @@
 // let currentTemplate = null;
 let generatedPortfolio = null;
 
-// DeepSeek API configuration
-const DEEPSEEK_API_KEY = 'sk-c6f284f756e94ba6a6c64545ad4b4c07';
-const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
-
 // File upload handler
 function handleFileUpload(event) {
   const file = event.target.files[0];
