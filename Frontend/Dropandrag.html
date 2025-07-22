@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Design Studio Pro</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Dropanddrag.css"/>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fas fa-palette"></i> Design Studio Pro
+      </div>
+      <div class="header-center">
+        <div class="canvas-size-selector">
+          <button class="btn btn-secondary" onclick="showCanvasSizeMenu()">
+            <i class="fas fa-expand-arrows-alt"></i> 
+            <span id="currentSize">Custom (800×600)</span>
+          </button>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="newProject()">
+          <i class="fas fa-plus"></i> New
+        </button>
+        <button class="btn btn-secondary" onclick="openProject()">
+          <i class="fas fa-folder-open"></i> Open
+        </button>
+        <button class="btn btn-secondary" onclick="saveProject()">
+          <i class="fas fa-save"></i> Save
+        </button>
+        <button class="btn" onclick="exportProject()">
+          <i class="fas fa-download"></i> Export
+        </button>
+      </div>
+    </header>
+
+    <div class="main-content">
+      <!-- Sidebar -->
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h2 style="font-size: 18px;" id="sidebarTitle">Design Tools</h2>
+          <button class="sidebar-toggle" onclick="toggleSidebar()">
+            <i class="fas fa-chevron-left" id="toggleIcon"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-content" id="sidebarContent">
+          <!-- Canvas Size Section -->
+          <div class="tool-section">
+            <h3>Canvas Size</h3>
+            <div class="size-presets">
+              <div class="size-preset" onclick="setCanvasSize(595, 842, 'A4 Portrait')">
+                <i class="fas fa-file-alt"></i>
+                <span>A4 Portrait</span>
+                <small>595×842</small>
+              </div>
+              <div class="size-preset" onclick="setCanvasSize(842, 595, 'A4 Landscape')">
+                <i class="fas fa-file-alt" style="transform: rotate(90deg);"></i>
+                <span>A4 Landscape</span>
+                <small>842×595</small>
+              </div>
+              <div class="size-preset" onclick="setCanvasSize(1080, 1080, 'Instagram Post')">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram Post</span>
+                <small>1080×1080</small>
+              </div>
+              <div class="size-preset" onclick="setCanvasSize(1200, 630, 'Facebook Cover')">
+                <i class="fab fa-facebook"></i>
+                <span>Facebook Cover</span>
+                <small>1200×630</small>
+              </div>
+              <div class="size-preset" onclick="setCanvasSize(1920, 1080, 'Presentation')">
+                <i class="fas fa-presentation"></i>
+                <span>Presentation</span>
+                <small>1920×1080</small>
+              </div>
+              <div class="size-preset" onclick="showCustomSizeDialog()">
+                <i class="fas fa-cog"></i>
+                <span>Custom Size</span>
+                <small>Custom</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Templates Section -->
+          <div class="tool-section">
+            <h3>Templates</h3>
+            <div class="templates-grid">
+              <div class="template-card" onclick="loadTemplate('business-card')">
+                <i class="fas fa-id-card"></i>
+                Business Card
+              </div>
+              <div class="template-card" onclick="loadTemplate('poster')">
+                <i class="fas fa-image"></i>
+                Poster
+              </div>
+              <div class="template-card" onclick="loadTemplate('flyer')">
+                <i class="fas fa-file-alt"></i>
+                Flyer
+              </div>
+              <div class="template-card" onclick="loadTemplate('social-media')">
+                <i class="fab fa-instagram"></i>
+                Social Post
+              </div>
+              <div class="template-card" onclick="loadTemplate('logo')">
+                <i class="fas fa-trademark"></i>
+                Logo
+              </div>
+              <div class="template-card" onclick="loadTemplate('certificate')">
+                <i class="fas fa-certificate"></i>
+                Certificate
+              </div>
+            </div>
+          </div>
+
+          <!-- Elements Section -->
+          <div class="tool-section">
+            <h3>Elements</h3>
+            <div class="tool-grid">
+              <div class="tool-btn" onclick="addText()">
+                <i class="fas fa-font"></i>
+                <span>Text</span>
+              </div>
+              <div class="tool-btn" onclick="showShapeOptions()">
+                <i class="fas fa-shapes"></i>
+                <span>Shapes</span>
+              </div>
+              <div class="tool-btn" onclick="triggerImageUpload()">
+                <i class="fas fa-image"></i>
+                <span>Image</span>
+              </div>
+              <div class="tool-btn" onclick="showIconLibrary()">
+                <i class="fas fa-icons"></i>
+                <span>Icons</span>
+              </div>
+              <div class="tool-btn" onclick="showBackgrounds()">
+                <i class="fas fa-palette"></i>
+                <span>Background</span>
+              </div>
+              <div class="tool-btn" onclick="showFrames()">
+                <i class="fas fa-border-style"></i>
+                <span>Frames</span>
+              </div>
+            </div>
+            
+            <div class="shape-options" id="shapeOptions" style="display: none;">
+              <div class="shape-btn" onclick="addRect()">
+                <i class="fas fa-square"></i>
+              </div>
+              <div class="shape-btn" onclick="addCircle()">
+                <i class="fas fa-circle"></i>
+              </div>
+              <div class="shape-btn" onclick="addTriangle()">
+                <i class="fas fa-play" style="transform: rotate(90deg);"></i>
+              </div>
+              <div class="shape-btn" onclick="addLine()">
+                <i class="fas fa-minus"></i>
+              </div>
+              <div class="shape-btn" onclick="addArrow()">
+                <i class="fas fa-arrow-right"></i>
+              </div>
+              <div class="shape-btn" onclick="addStar()">
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="shape-btn" onclick="addPolygon()">
+                <i class="fas fa-draw-polygon"></i>
+              </div>
+              <div class="shape-btn" onclick="addHeart()">
+                <i class="fas fa-heart"></i>
+              </div>
+            </div>
+
+            <!-- Icon Library -->
+            <div class="icon-library" id="iconLibrary" style="display: none;">
+              <div class="icon-categories">
+                <button class="icon-cat-btn active" onclick="showIconCategory('business')">Business</button>
+                <button class="icon-cat-btn" onclick="showIconCategory('social')">Social</button>
+                <button class="icon-cat-btn" onclick="showIconCategory('arrows')">Arrows</button>
+                <button class="icon-cat-btn" onclick="showIconCategory('nature')">Nature</button>
+              </div>
+              <div class="icon-grid" id="iconGrid">
+                <!-- Icons will be populated by JavaScript -->
+              </div>
+            </div>
+
+            <!-- Background Options -->
+            <div class="background-options" id="backgroundOptions" style="display: none;">
+              <div class="bg-section">
+                <h4>Colors</h4>
+                <div class="color-grid">
+                  <div class="color-swatch" style="background: #ffffff;" onclick="setCanvasBackground('#ffffff')"></div>
+                  <div class="color-swatch" style="background: #000000;" onclick="setCanvasBackground('#000000')"></div>
+                  <div class="color-swatch" style="background: #ff6b6b;" onclick="setCanvasBackground('#ff6b6b')"></div>
+                  <div class="color-swatch" style="background: #4ecdc4;" onclick="setCanvasBackground('#4ecdc4')"></div>
+                  <div class="color-swatch" style="background: #45b7d1;" onclick="setCanvasBackground('#45b7d1')"></div>
+                  <div class="color-swatch" style="background: #96ceb4;" onclick="setCanvasBackground('#96ceb4')"></div>
+                  <div class="color-swatch" style="background: #feca57;" onclick="setCanvasBackground('#feca57')"></div>
+                  <div class="color-swatch" style="background: #ff9ff3;" onclick="setCanvasBackground('#ff9ff3')"></div>
+                </div>
+              </div>
+              <div class="bg-section">
+                <h4>Gradients</h4>
+                <div class="gradient-grid">
+                  <div class="gradient-swatch" style="background: linear-gradient(45deg, #667eea, #764ba2);" onclick="setCanvasGradient('linear-gradient(45deg, #667eea, #764ba2)')"></div>
+                  <div class="gradient-swatch" style="background: linear-gradient(45deg, #f093fb, #f5576c);" onclick="setCanvasGradient('linear-gradient(45deg, #f093fb, #f5576c)')"></div>
+                  <div class="gradient-swatch" style="background: linear-gradient(45deg, #4facfe, #00f2fe);" onclick="setCanvasGradient('linear-gradient(45deg, #4facfe, #00f2fe)')"></div>
+                  <div class="gradient-swatch" style="background: linear-gradient(45deg, #43e97b, #38f9d7);" onclick="setCanvasGradient('linear-gradient(45deg, #43e97b, #38f9d7)')"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upload Section -->
+          <div class="tool-section">
+            <div class="upload-area" onclick="triggerImageUpload()">
+              <i class="fas fa-cloud-upload-alt" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+              <div>Drop images here or click to upload</div>
+            </div>
+            <input type="file" id="imgUpload" class="file-upload" accept="image/*" multiple>
+          </div>
+
+          <!-- Properties Section -->
+          <div class="properties">
+            <h3 style="margin-bottom: 15px;">Properties</h3>
+            
+            <div class="property-group">
+              <label>Fill Color</label>
+              <div class="color-picker-wrapper">
+                <div class="color-preview" id="fillColorPreview" style="background: #667eea;" onclick="document.getElementById('fillColor').click()"></div>
+                <input type="color" id="fillColor" value="#667eea" style="opacity: 0; width: 0; height: 0;">
+              </div>
+            </div>
+
+            <div class="property-group">
+              <label>Stroke Color</label>
+              <div class="color-picker-wrapper">
+                <div class="color-preview" id="strokeColorPreview" style="background: #000000;" onclick="document.getElementById('strokeColor').click()"></div>
+                <input type="color" id="strokeColor" value="#000000" style="opacity: 0; width: 0; height: 0;">
+              </div>
+            </div>
+
+            <div class="property-group">
+              <label>Font Size</label>
+              <input type="range" id="fontSize" class="property-input" min="8" max="200" value="24">
+              <span id="fontSizeValue" style="color: #a0aec0; font-size: 12px;">24px</span>
+            </div>
+
+            <div class="property-group">
+              <label>Stroke Width</label>
+              <input type="range" id="strokeWidth" class="property-input" min="0" max="20" value="2">
+              <span id="strokeWidthValue" style="color: #a0aec0; font-size: 12px;">2px</span>
+            </div>
+
+            <div class="property-group">
+              <label>Opacity</label>
+              <input type="range" id="opacity" class="property-input" min="0" max="1" step="0.1" value="1">
+              <span id="opacityValue" style="color: #a0aec0; font-size: 12px;">100%</span>
+            </div>
+
+            <div class="property-group">
+              <label>Font Family</label>
+              <select id="fontFamily" class="property-input">
+                <option value="Arial">Arial</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Impact">Impact</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Courier New">Courier New</option>
+              </select>
+            </div>
+
+            <div class="property-group">
+              <label>Text Effects</label>
+              <div class="effect-buttons">
+                <button class="effect-btn" onclick="toggleBold()">
+                  <i class="fas fa-bold"></i>
+                </button>
+                <button class="effect-btn" onclick="toggleItalic()">
+                  <i class="fas fa-italic"></i>
+                </button>
+                <button class="effect-btn" onclick="toggleUnderline()">
+                  <i class="fas fa-underline"></i>
+                </button>
+                <button class="effect-btn" onclick="addTextShadow()">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Minimized Sidebar Content -->
+        <div class="sidebar-minimized" id="sidebarMinimized" style="display: none;">
+          <div class="mini-tool" onclick="expandSidebar(); showSection('templates')" title="Templates">
+            <i class="fas fa-th-large"></i>
+          </div>
+          <div class="mini-tool" onclick="expandSidebar(); showSection('elements')" title="Elements">
+            <i class="fas fa-shapes"></i>
+          </div>
+          <div class="mini-tool" onclick="expandSidebar(); showSection('upload')" title="Upload">
+            <i class="fas fa-upload"></i>
+          </div>
+          <div class="mini-tool" onclick="expandSidebar(); showSection('properties')" title="Properties">
+            <i class="fas fa-sliders-h"></i>
+          </div>
+          <div class="mini-tool" onclick="toggleLayers()" title="Layers">
+            <i class="fas fa-layer-group"></i>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Canvas Area -->
+      <div class="canvas-area">
+        <div class="canvas-toolbar">
+          <div class="zoom-controls">
+            <button class="zoom-btn" onclick="zoomOut()">
+              <i class="fas fa-search-minus"></i>
+            </button>
+            <div class="zoom-level" id="zoomLevel">100%</div>
+            <button class="zoom-btn" onclick="zoomIn()">
+              <i class="fas fa-search-plus"></i>
+            </button>
+            <button class="zoom-btn" onclick="resetZoom()">
+              <i class="fas fa-expand-arrows-alt"></i>
+            </button>
+            <button class="zoom-btn" onclick="fitToScreen()">
+              <i class="fas fa-compress"></i>
+            </button>
+          </div>
+          
+          <div class="toolbar-center">
+            <button class="btn btn-secondary" onclick="undo()">
+              <i class="fas fa-undo"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="redo()">
+              <i class="fas fa-redo"></i>
+            </button>
+          </div>
+          
+          <div class="toolbar-right">
+            <button class="btn btn-secondary" onclick="toggleLayers()">
+              <i class="fas fa-layer-group"></i> Layers
+            </button>
+            
+            <button class="btn btn-secondary" onclick="alignLeft()">
+              <i class="fas fa-align-left"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="alignCenter()">
+              <i class="fas fa-align-center"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="alignRight()">
+              <i class="fas fa-align-right"></i>
+            </button>
+            
+            <button class="btn btn-secondary" onclick="duplicateObject()">
+              <i class="fas fa-copy"></i>
+            </button>
+            <button class="btn btn-secondary" onclick="deleteObject()">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="canvas-container">
+          <div class="canvas-wrapper" id="canvasWrapper">
+            <canvas id="canvas" width="800" height="600"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Panels -->
+    <div class="floating-panel layers-panel" id="layersPanel">
+      <div class="panel-header">
+        <h3>Layers</h3>
+        <button class="close-btn" onclick="toggleLayers()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="layersList"></div>
+    </div>
+
+    <!-- Canvas Size Menu -->
+    <div class="floating-panel canvas-size-menu" id="canvasSizeMenu" style="top: 60px; left: 50%; transform: translateX(-50%);">
+      <div class="panel-header">
+        <h3>Canvas Size</h3>
+        <button class="close-btn" onclick="hideCanvasSizeMenu()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="size-options">
+        <div class="size-category">
+          <h4>Print</h4>
+          <div class="size-list">
+            <div class="size-item" onclick="setCanvasSize(595, 842, 'A4 Portrait')">A4 Portrait (595×842)</div>
+            <div class="size-item" onclick="setCanvasSize(842, 595, 'A4 Landscape')">A4 Landscape (842×595)</div>
+            <div class="size-item" onclick="setCanvasSize(420, 595, 'A5 Portrait')">A5 Portrait (420×595)</div>
+            <div class="size-item" onclick="setCanvasSize(595, 420, 'A5 Landscape')">A5 Landscape (595×420)</div>
+          </div>
+        </div>
+        <div class="size-category">
+          <h4>Social Media</h4>
+          <div class="size-list">
+            <div class="size-item" onclick="setCanvasSize(1080, 1080, 'Instagram Post')">Instagram Post (1080×1080)</div>
+            <div class="size-item" onclick="setCanvasSize(1080, 1920, 'Instagram Story')">Instagram Story (1080×1920)</div>
+            <div class="size-item" onclick="setCanvasSize(1200, 630, 'Facebook Cover')">Facebook Cover (1200×630)</div>
+            <div class="size-item" onclick="setCanvasSize(1500, 500, 'Twitter Header')">Twitter Header (1500×500)</div>
+          </div>
+        </div>
+        <div class="size-category">
+          <h4>Presentation</h4>
+          <div class="size-list">
+            <div class="size-item" onclick="setCanvasSize(1920, 1080, 'HD Presentation')">HD (1920×1080)</div>
+            <div class="size-item" onclick="setCanvasSize(1280, 720, 'HD Ready')">HD Ready (1280×720)</div>
+            <div class="size-item" onclick="setCanvasSize(1024, 768, 'Standard')">Standard (1024×768)</div>
+          </div>
+        </div>
+        <div class="size-category">
+          <div class="custom-size-input">
+            <h4>Custom Size</h4>
+            <div class="input-row">
+              <input type="number" id="customWidth" placeholder="Width" min="100" max="5000">
+              <span>×</span>
+              <input type="number" id="customHeight" placeholder="Height" min="100" max="5000">
+              <button class="btn" onclick="setCustomCanvasSize()">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu">
+      <div class="context-item" onclick="duplicateObject()">
+        <i class="fas fa-copy"></i> Duplicate
+      </div>
+      <div class="context-item" onclick="deleteObject()">
+        <i class="fas fa-trash"></i> Delete
+      </div>
+      <div class="context-item" onclick="bringToFront()">
+        <i class="fas fa-arrow-up"></i> Bring to Front
+      </div>
+      <div class="context-item" onclick="sendToBack()">
+        <i class="fas fa-arrow-down"></i> Send to Back
+      </div>
+      <div class="context-item" onclick="lockObject()">
+        <i class="fas fa-lock"></i> Lock/Unlock
+      </div>
+    </div>
+  </div>
+  <script src="Dropanddrag.js"></script>
+</body>
+</html>
