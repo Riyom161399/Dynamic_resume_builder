@@ -1,0 +1,766 @@
+//Html
+
+<!-- Chat Assistant -->
+      <div class="chat-container">
+        <div class="chat-header">
+          <i class="fas fa-robot"></i>
+          <h3>Resume Assistant</h3>
+        </div>
+        <div class="chat-messages" id="chat">
+          <div class="message bot-message">
+            Hello! I'm your Resume Assistant. How can I help you today?
+          </div>
+          <div class="message bot-message">
+            You can ask me questions like:<br />
+            - "How to write a good summary?"<br />
+            - "What skills should I include?"<br />
+            - "How to format my work experience?"
+          </div>
+          <div class="message user-message">
+            I need help choosing a template
+          </div>
+          <div class="message bot-message">
+            I can recommend templates based on your needs. Are you applying for
+            a:<br />
+            1. Corporate job<br />
+            2. Creative position<br />
+            3. Academic role<br />
+            4. Technical field
+          </div>
+        </div>
+        <!-- <div class="chat-input-container">
+          <input
+            type="text"
+            class="chat-input"
+            id="userInput"
+            placeholder="Type your message..."
+            onkeypress="handleKeyPress(event)"
+          />
+          <button class="send-btn" onclick="sendMessage()">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div> -->
+
+        <div class="chat-input-container">
+          <input
+            type="file"
+            class="cv-file-input"
+            id="cvFileInput"
+            accept=".pdf,.doc,.docx,.txt"
+            onchange="handleFileUpload(event)"
+          />
+          <button
+            class="file-btn"
+            onclick="document.getElementById('cvFileInput').click()"
+            title="Upload CV"
+          >
+            <i class="fas fa-paperclip"></i>
+          </button>
+          <input
+            type="text"
+            class="chat-input"
+            id="userInput"
+            placeholder="Type your message or upload your CV..."
+            onkeypress="handleKeyPress(event)"
+          />
+          <button class="send-btn" onclick="sendMessage()" title="Send Message">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        
+      </div>
+    </div>
+
+
+
+
+
+
+    ////css
+
+  /* Chat Box Styles */
+      .chat-container {
+        width: var(--chat-width);
+        background: white;
+        border-left: 1px solid #e0e3e7;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .chat-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e3e7;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chat-header h3 {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .chat-header i {
+        color: var(--accent-color);
+      }
+
+      .chat-messages {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .message {
+        max-width: 80%;
+        padding: 12px 16px;
+        border-radius: 18px;
+        font-size: 14px;
+        line-height: 1.5;
+        animation: fadeIn 0.3s ease;
+        position: relative;
+      }
+
+      .bot-message {
+        align-self: flex-start;
+        background: #f0f2f5;
+        border-top-left-radius: 4px;
+      }
+
+      .user-message {
+        align-self: flex-end;
+        background: var(--primary-color);
+        color: white;
+        border-top-right-radius: 4px;
+      }
+
+      .chat-input-container {
+        padding: 15px;
+        border-top: 1px solid #e0e3e7;
+        display: flex;
+        gap: 10px;
+      }
+
+      .chat-input {
+        flex: 1;
+        padding: 12px 15px;
+        border: 1px solid #e0e3e7;
+        border-radius: 24px;
+        font-size: 14px;
+        outline: none;
+        transition: border 0.2s ease;
+      }
+
+      .chat-input:focus {
+        border-color: var(--accent-color);
+      }
+
+      .send-btn {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .send-btn:hover {
+        background: var(--secondary-color);
+        transform: scale(1.05);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1200px) {
+        .chat-container {
+          position: fixed;
+          right: -100%;
+          top: 0;
+          height: 100%;
+          transition: right 0.3s ease;
+          z-index: 100;
+        }
+
+        .chat-container.active {
+          right: 0;
+        }
+
+        .chat-toggle {
+          display: flex;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 70px;
+          padding: 20px 10px;
+          align-items: center;
+        }
+
+        .sidebar-header h2,
+        .menu-item span {
+          display: none;
+        }
+
+        .menu-item {
+          justify-content: center;
+          padding: 15px 0;
+        }
+
+        .main {
+          margin-left: 70px;
+        }
+      }
+
+
+      .cv-file-input {
+  display: none;
+}
+
+.file-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #6c757d;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-btn:hover {
+  background: #5a6268;
+  transform: scale(1.05);
+}
+
+.download-portfolio-btn {
+  background: var(--success-color);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 10px 5px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.download-portfolio-btn:hover {
+  background: #3ab7d8;
+  transform: translateY(-2px);
+}
+
+.portfolio-preview {
+  background: #f8f9fa;
+  border: 1px solid #e0e3e7;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  font-family: monospace;
+  font-size: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+
+
+
+//js
+
+
+// let currentTemplate = null;
+let generatedPortfolio = null;
+
+// DeepSeek API configuration
+const DEEPSEEK_API_KEY = 'sk-c6f284f756e94ba6a6c64545ad4b4c07';
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+
+// File upload handler
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const chat = document.getElementById('chat');
+  
+  // Add file upload message
+  const fileMessage = document.createElement('div');
+  fileMessage.classList.add('message', 'user-message');
+  fileMessage.innerHTML = `📎 Uploaded CV: ${file.name}`;
+  chat.appendChild(fileMessage);
+
+  // Add processing message
+  const processingMessage = document.createElement('div');
+  processingMessage.classList.add('message', 'bot-message');
+  processingMessage.textContent = 'Processing your CV... This may take a moment.';
+  chat.appendChild(processingMessage);
+  chat.scrollTop = chat.scrollHeight;
+
+  // Read file content
+  const reader = new FileReader();
+  reader.onload = async function(e) {
+    const cvContent = e.target.result;
+    await processCV(cvContent, processingMessage);
+  };
+  
+  reader.readAsText(file);
+}
+
+// Process CV and generate portfolio
+async function processCV(cvContent, messageElement) {
+  try {
+    const portfolioData = await generatePortfolioFromCV(cvContent);
+    
+    if (portfolioData) {
+      generatedPortfolio = portfolioData;
+      
+      // Update message with success and download options
+      messageElement.innerHTML = `
+        <div>✅ Portfolio generated successfully!</div>
+        <div style="margin-top: 10px;">
+          <button class="download-portfolio-btn" onclick="downloadFile('html', generatedPortfolio.html)">
+            📄 Download HTML
+          </button>
+          <button class="download-portfolio-btn" onclick="downloadFile('css', generatedPortfolio.css)">
+            🎨 Download CSS
+          </button>
+          <button class="download-portfolio-btn" onclick="downloadFile('js', generatedPortfolio.js)">
+            ⚡ Download JS
+          </button>
+        </div>
+        <div class="portfolio-preview">
+          <strong>Preview:</strong><br>
+          ${portfolioData.html.substring(0, 200)}...
+        </div>
+      `;
+    } else {
+      messageElement.textContent = 'Sorry, I couldn\'t process your CV. Please try again or check the file format.';
+    }
+  } catch (error) {
+    console.error('Error processing CV:', error);
+    messageElement.textContent = 'An error occurred while processing your CV. Please try again.';
+  }
+  
+  const chat = document.getElementById('chat');
+  chat.scrollTop = chat.scrollHeight;
+}
+
+// Generate portfolio using DeepSeek API
+async function generatePortfolioFromCV(cvContent) {
+  const prompt = `
+    Based on the following CV content, create a professional portfolio website with HTML, CSS, and JavaScript files.
+    
+    Requirements:
+    1. Modern, responsive design
+    2. Professional color scheme
+    3. Smooth animations and transitions
+    4. Contact form with basic validation
+    5. Skills progress bars
+    6. Project showcase section
+    7. About section based on CV summary
+    8. Experience timeline
+    9. Mobile-friendly design
+    
+    CV Content:
+    ${cvContent}
+    
+    Please provide three separate code blocks:
+    1. HTML (complete HTML file with proper structure)
+    2. CSS (complete CSS file with modern styling)
+    3. JavaScript (complete JS file with animations and form validation)
+    
+    Format your response as JSON with this structure:
+    {
+      "html": "complete HTML code here",
+      "css": "complete CSS code here", 
+      "js": "complete JavaScript code here"
+    }
+  `;
+
+  try {
+    const response = await fetch(DEEPSEEK_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 8000
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`API request failed: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const content = data.choices[0].message.content;
+    
+    // Extract JSON from the response
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      return JSON.parse(jsonMatch[0]);
+    }
+    
+    // Fallback: try to parse the entire response as JSON
+    return JSON.parse(content);
+    
+  } catch (error) {
+    console.error('DeepSeek API Error:', error);
+    
+    // Fallback: Generate basic portfolio template
+    return generateBasicPortfolio(cvContent);
+  }
+}
+
+// Fallback function to generate basic portfolio
+function generateBasicPortfolio(cvContent) {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Portfolio</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="hero">
+        <h1>Professional Portfolio</h1>
+        <p>Based on your CV content</p>
+    </section>
+    
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Professional summary based on your CV will be displayed here.</p>
+    </section>
+    
+    <section id="experience">
+        <h2>Experience</h2>
+        <div class="timeline">
+            <!-- Experience from CV will be populated here -->
+        </div>
+    </section>
+    
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-container">
+            <!-- Skills from CV will be populated here -->
+        </div>
+    </section>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <form id="contactForm">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>`;
+
+  const css = `* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #007bff;
+}
+
+#hero {
+    text-align: center;
+    padding: 5rem 2rem;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+}
+
+section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.timeline {
+    border-left: 3px solid #007bff;
+    padding-left: 2rem;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+form button {
+    background: #007bff;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background: #0056b3;
+}`;
+
+  const js = `document.addEventListener('DOMContentLoaded', function() {
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Form validation and submission
+    const form = document.getElementById('contactForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            const inputs = form.querySelectorAll('input, textarea');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#dc3545';
+                } else {
+                    input.style.borderColor = '#28a745';
+                }
+            });
+            
+            if (isValid) {
+                alert('Message sent successfully!');
+                form.reset();
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    }
+
+    // Add animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe all sections
+    document.querySelectorAll('section').forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+    });
+});`;
+
+  return { html, css, js };
+}
+
+// Download generated files
+function downloadFile(type, content) {
+  const extensions = { html: 'html', css: 'css', js: 'js' };
+  const mimeTypes = {
+    html: 'text/html',
+    css: 'text/css', 
+    js: 'application/javascript'
+  };
+  
+  const fileName = `portfolio.${extensions[type]}`;
+  const blob = new Blob([content], { type: mimeTypes[type] });
+  const url = URL.createObjectURL(blob);
+  
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// Enhanced chat functionality
+function handleKeyPress(event) {
+  if (event.key === 'Enter') {
+    sendMessage();
+  }
+}
+
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const chat = document.getElementById('chat');
+  const userText = input.value.trim();
+
+  if (!userText) return;
+
+  // Add user message to chat
+  const userMessage = document.createElement('div');
+  userMessage.classList.add('message', 'user-message');
+  userMessage.textContent = userText;
+  chat.appendChild(userMessage);
+
+  // Clear input
+  input.value = '';
+
+  // Add temporary bot message
+  const botMessage = document.createElement('div');
+  botMessage.classList.add('message', 'bot-message');
+  botMessage.textContent = 'Thinking...';
+  chat.appendChild(botMessage);
+  
+  // Scroll to bottom
+  chat.scrollTop = chat.scrollHeight;
+
+  // Enhanced AI responses
+  setTimeout(() => {
+    let response = '';
+    
+    if (userText.toLowerCase().includes('cv') || userText.toLowerCase().includes('portfolio')) {
+      response = "To generate a portfolio from your CV, please use the 📎 button to upload your CV file. I support PDF, DOC, DOCX, and TXT formats. Once uploaded, I'll create a complete HTML, CSS, and JavaScript portfolio that you can download!";
+    } else if (userText.toLowerCase().includes('template')) {
+      response = "I recommend using the Professional template for corporate jobs, Creative for design positions, Minimal for technical roles, or Executive for leadership positions.";
+    } else if (userText.toLowerCase().includes('help')) {
+      response = "I can help you with:<br/>• Upload your CV to generate a portfolio<br/>• Choose the right resume template<br/>• Provide resume writing tips<br/>• Format your work experience<br/>• Suggest improvements";
+    } else {
+      const responses = [
+        "Remember to tailor your resume to each job application.",
+        "Highlight your most relevant experience at the top.",
+        "Use bullet points to make your achievements stand out.",
+        "Quantify your accomplishments where possible (e.g., 'Increased sales by 30%').",
+        "Keep your resume concise and focused on relevant skills.",
+        "Use action verbs to describe your responsibilities and achievements."
+      ];
+      response = responses[Math.floor(Math.random() * responses.length)];
+    }
+    
+    botMessage.innerHTML = response;
+    chat.scrollTop = chat.scrollHeight;
+  }, 1000);
+}
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', function() {
+  // Add any initialization code here
+  console.log('Resume Builder with Portfolio Generator initialized');
+});
